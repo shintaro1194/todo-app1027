@@ -29,5 +29,5 @@ test('localStorage に保存された TODO が最初から表示される', () =
   localStorage.setItem('todos', JSON.stringify([{ id: '1', text: '保存済みの TODO', done: true }]))
   render(<TodoApp />)
   expect(screen.getByRole('checkbox', { name: '保存済みの TODO' })).toBeChecked()
-  expect(screen.getByText('残り 0 件')).toBeInTheDocument()
+  expect(screen.getByText(/残り\s*0\s*件/)).toBeInTheDocument()
 })
