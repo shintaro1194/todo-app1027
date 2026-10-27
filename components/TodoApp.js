@@ -6,6 +6,7 @@ import TodoForm from './TodoForm'
 import TodoList from './TodoList'
 import { addTodo, clearDone, countDone, countRemaining, deleteTodo, editTodo, filterTodos, toggleTodo } from '@/lib/todos'
 import { loadTodos, saveTodos } from '@/lib/storage'
+import SampleLoader from './SampleLoader'
 
 
 export default function TodoApp() {
@@ -37,6 +38,11 @@ export default function TodoApp() {
     setTodos(clearDone(todos))
   }
 
+  function handleLoadSamples(texts) {
+  setTodos(texts.reduce((acc, text) => addTodo(acc, text), todos))
+}
+
+
   function clearAll() {
     if (!window.confirm('すべての TODO を削除しますか？')) return
     setTodos([])
@@ -50,11 +56,12 @@ export default function TodoApp() {
   return (
     <div>
       <TodoForm onAdd={handleAdd} />
+      <SampleLoader onLoad={handleLoadSamples} />
       <TodoFilter value={filter} onChange={setFilter} />
       <TodoList todos={visibleTodos} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
       {todos.length > 0 && (
-        <p className="whitespace-nowrap">
-          {`全 ${todos.length} 件 / 完了 ${doneCount} 件 / 残り ${remaining} 件`}
+        <p>
+          全 {todos.length} 件 / 完了 {doneCount} 件 / 残り {remaining} 件
         </p>
       )}
       <button onClick={handleClearDone} disabled={doneCount === 0}>
