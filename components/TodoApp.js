@@ -53,8 +53,8 @@ export default function TodoApp() {
       <TodoFilter value={filter} onChange={setFilter} />
       <TodoList todos={visibleTodos} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
       {todos.length > 0 && (
-        <p>
-          全 {todos.length} 件 / 完了 {doneCount} 件 / 残り {remaining} 件
+        <p className="whitespace-nowrap">
+          {`全 ${todos.length} 件 / 完了 ${doneCount} 件 / 残り ${remaining} 件`}
         </p>
       )}
       <button onClick={handleClearDone} disabled={doneCount === 0}>
